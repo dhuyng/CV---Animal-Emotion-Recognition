@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animal Emotion Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        @font-face {
+            font-family: 'CatPaw';
+            src: url('{{ url_for('static', filename='fonts/CatPaw.otf') }}') format('opentype');
+        }
+
+        *{
+            box-sizing: border-box !important; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row text-center border border-black" style="height: 10vh; background-color: #e6f7e6">
+            <h1 class="text-success " style="font-family: 'CatPaw';">Animal Emotion Recognition</h1>
+        </div>
+        <div class="row text-center" style="height: 85vh ; background-color: #f7f7f7">
+            <div class=" text-center col-12 mt-3"> 
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <input id="tep" class="btn btn-warning" type="file" name="file" accept="image/*" onchange="changeButtonColor()"> <br>
+                    <button class="btn btn-success mt-3" type="submit">Upload and Check</button>
+                </form>
+            </div>
+
+            <div class="col-12 text-center">
+                {% if species and emotion %}
+                <img src="{{ image_path }}" alt="Uploaded Image" style="max-height: 40%; margin-top: 20px;">
+                <p class="text-black fw-bold">Predicted Species: <span style="text-transform: uppercase; color: green;"> {{ species }}</span></p>
+                <p class="text-black fw-bold">Predicted Emotion: <span style="text-transform: uppercase; color: green;"> {{ emotion }}</span></p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="row text-center text-success text-success border border-black" style="font-family: CatPaw; height: 10vh;  background-color: #e6f7e6">
+            <div class="col text-center">
+                Helping you understand the emotions of those who love unconditionally.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function changeButtonColor() {
+            var input = document.getElementById('tep');
+            if (input.files.length > 0) {
+                input.classList.remove('btn-warning');
+                input.classList.add('btn-info');
+            } else {
+                input.classList.remove('btn-info');
+                input.classList.add('btn-warning');
+            }
+        }
+    </script>
+</body>
+</html>
